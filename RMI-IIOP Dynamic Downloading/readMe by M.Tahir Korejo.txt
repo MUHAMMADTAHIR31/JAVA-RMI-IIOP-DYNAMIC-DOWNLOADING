@@ -1,0 +1,76 @@
+JAVA RMI-IIOP DYNAMIC DOWNLOADING
+=================================
+
+step-1
+Create Folder in  xammp or any server in its root folder
+ 
+for Apache
+C:\xampp\htdocs\IIOP
+ 
+Create and Save follwing files in IIOP Folder (Source Code) 
+===============================================
+(1) HelloInterface.java
+(2) HelloImp.java
+(3) HelloClient.java
+
+First Set Class Path
+===================
+set path=C:\Program Files\Java\jdk1.8.0_291\bin
+
+step-2
+Compile all Source Code
+===========================
+C:\xampp\htdocs\IIOP>javac *.java
+
+step-3
+The preceding command creates the following files:
+_HelloInterface_Stub.class - the client stub
+_HelloImpl_Tie.class - the server skeleton
+===========================
+C:\xampp\htdocs\IIOP>rmic -iiop HelloImpl
+
+step-4
+Now,Create  Dynamic Classes in any directory except where server is installed.
+Create Following Files (Source Code)
+Noted: Try to Create separate folder for client and server
+================================================
+(1) DynmicServer.java (save in server folder)
+(2) DynamicClient.java (save in client folder)
+(3)  sachal.policy (for system permission and save in both folder client as well as server)
+
+step-5
+Compile the source files as follows:
+===========================
+D:\Java RMI-IIOP\Dynamic Download\Simple IIOP\Server>javac DynamicServer.java
+
+step-6
+start the naming service
+==========================
+D:\Java RMI-IIOP\Dynamic Download\Simple IIOP\Server>orbd -ORBInitialPort 1050
+
+
+step-7
+Start the  Dynamic server, as follows:
+==========================
+java -classpath . -Djava.security.policy=sachal.policy -Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:1050  -Djava.rmi.server.codebase=http://localhost:80/IIOP/ DynamicServer
+
+step-8
+Compile the source files as follows:
+===========================
+D:\Java RMI-IIOP\Dynamic Download\Simple IIOP\Server>javac DynamicClient.java
+
+step-9
+Start the client application, as follows:
+==========================
+D:\Java RMI-IIOP\Dynamic Download\Simple IIOP\Client>java -classpath . -Djava.security.policy=sachal.policy -Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:1050  -Djava.rmi.server.codebase=http://localhost:80/IIOP/  DynamicClient
+
+step-10
+================================
+Open Both Consloe Server and Client to See Outputs.
+
+Reference: 
+1.Sir Sachal Joyo (Teacher)
+2.Muhammad Tahir Korejo (Student)
+
+
+
